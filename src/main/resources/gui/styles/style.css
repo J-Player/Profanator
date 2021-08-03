@@ -1,0 +1,81 @@
+AnchorPane {
+    -fx-background-color: linear-gradient(#430C5F, #2E0841);
+}
+
+Button {
+    -fx-background-color: #F2B707;
+    -fx-text-fill: black;
+}
+Button:hover {
+    -fx-background-color: #F9C62F;
+}
+
+Label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.combo-box {
+    -fx-background-color: white;
+}
+.combo-box:focused {
+    -fx-border-color: #F9C62F;
+    -fx-border-radius: 1%;
+}
+.combo-box .text-field {
+    -fx-text-fill: black;
+    -fx-font-weight: normal;
+}
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-box .list-view .list-cell:hover, .combo-box .list-view .list-cell:focused {
+    -fx-background-color: #59107E;
+    -fx-text-fill: white;
+}
+.combo-box .list-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+    -fx-padding: -10px;
+    -fx-scale-x: 0;
+}
+
+.text-field:focused {
+    -fx-faint-focus-color: transparent;
+    -fx-focus-color: #F9C62F;
+}
+
+.menu {
+    -fx-background-color: transparent;
+}
+.menu:hover, .menu:showing, .menu-item:focused, .menu-item:hover {
+    -fx-background-color: #59107E;
+    -fx-text-fill: white;
+}
+.menu-item {
+    -fx-background-color: transparent;
+}
+
+.tree-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #F2B707;
+    -fx-font-weight: bold;
+}
+.tree-view .tree-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: #F2B707;
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: white;
+}
+
+#rooter {
+    -fx-background-color: #260636;
+}
+#rooter * {
+    -fx-fill: #D9C9E1;
+    -fx-font-weight: bold;
+}
