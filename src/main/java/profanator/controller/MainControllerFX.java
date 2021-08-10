@@ -10,7 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import profanator.model.Item;
 import profanator.service.ItemService;
@@ -24,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@Log4j2
+@RequiredArgsConstructor
 public class MainControllerFX {
 
     @FXML
@@ -56,10 +59,8 @@ public class MainControllerFX {
     @FXML
     private CheckMenuItem aoTCheckMenuItem;
 
-    @Autowired
-    private ProficiencyService proficiencyService;
-    @Autowired
-    private ItemService itemService;
+    private final ProficiencyService proficiencyService;
+    private final ItemService itemService;
 
     private Stage stage;
 
@@ -69,10 +70,15 @@ public class MainControllerFX {
         proficiencyComboBox.setItems(FXCollections.observableList(list));
         proficiencyComboBox.disableProperty().bind(proficiencyComboBox.itemsProperty().isNull());
         Map<String, ObservableList<String>> items = new HashMap<>();
+        log.info(String.format("Total proficiencies found: %d", proficiencyComboBox.getItems().size()));
+        int totalItem = 0;
         for (String proficiency : proficiencyComboBox.getItems()) {
             List<String> itemList = itemService.findAllItemNameByProficiency(proficiency);
             items.put(proficiency, FXCollections.observableList(itemList));
+            log.info(String.format("%s items: %d", proficiency, itemList.size()));
+            totalItem += itemList.size();
         }
+        log.info(String.format("Total items found: %d", totalItem));
         proficiencyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (items.containsKey(newValue)) {
                 itemComboBox.setItems(items.get(newValue));
@@ -188,3 +194,4 @@ public class MainControllerFX {
     }
 
 }
+

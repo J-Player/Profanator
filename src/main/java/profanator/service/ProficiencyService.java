@@ -1,6 +1,6 @@
 package profanator.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import profanator.model.Proficiency;
 import profanator.repository.ProficiencyRepository;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProficiencyService extends AbstractService<Proficiency, String> {
 
     private final ProficiencyRepository proficiencyRepository;
@@ -32,8 +32,7 @@ public class ProficiencyService extends AbstractService<Proficiency, String> {
     public List<String> findAll() {
         List<Proficiency> proficiencies = proficiencyRepository.findAll();
         List<String> list = new ArrayList<>(proficiencies.size());
-        for (Proficiency proficiency : proficiencies)
-            list.add(proficiency.getName());
+        proficiencies.forEach(proficiency -> list.add(proficiency.getName()));
         return list;
     }
 

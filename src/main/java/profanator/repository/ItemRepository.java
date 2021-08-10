@@ -10,4 +10,5 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, String> {
 
     List<Item> findByProficiencyName(String proficiency);
+
 }

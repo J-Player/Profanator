@@ -29,11 +29,12 @@ public class Crafter implements Runnable {
                 item.setQuantity(newQuantity);
             }
         }
-        for (Item ingredient : item.getIngredients()) {
-            ingredient.setQuantity(ingredient.getQuantity() * item.getQuantity() / item.getQtByProduction());
-            if (!ingredient.getIngredients().isEmpty())
-                calculate(ingredient);
-        }
+        if (!item.getIngredients().isEmpty())
+            for (Item ingredient : item.getIngredients()) {
+                ingredient.setQuantity(ingredient.getQuantity() * item.getQuantity() / item.getQtByProduction());
+                if (!ingredient.getIngredients().isEmpty())
+                    calculate(ingredient);
+            }
     }
 
 }

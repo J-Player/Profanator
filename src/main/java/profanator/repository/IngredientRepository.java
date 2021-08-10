@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, IngredientId> {
 
-    List<Ingredient> findByIdId(Item id);
+    List<Ingredient> findByIdIdOrderByIndexAsc(Item id);
 
 }

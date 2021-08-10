@@ -1,6 +1,6 @@
 package profanator.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import profanator.model.Ingredient;
 import profanator.model.IngredientId;
@@ -10,7 +10,7 @@ import profanator.repository.IngredientRepository;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class IngredientService extends AbstractService<Ingredient, IngredientId> {
 
     private final IngredientRepository ingredientRepository;
@@ -31,7 +31,7 @@ public class IngredientService extends AbstractService<Ingredient, IngredientId>
     }
 
     public List<Ingredient> findById(Item id) {
-        return ingredientRepository.findByIdId(id);
+        return ingredientRepository.findByIdIdOrderByIndexAsc(id);
     }
 
 }

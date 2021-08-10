@@ -1,6 +1,6 @@
 package profanator.service;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import profanator.exception.ItemNotFoundException;
 import profanator.model.Ingredient;
@@ -9,9 +9,11 @@ import profanator.repository.ItemRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ItemService extends AbstractService<Item, String> {
 
     private final ItemRepository itemRepository;
@@ -34,7 +36,7 @@ public class ItemService extends AbstractService<Item, String> {
 
     public Item findByName(String name) {
         Item item = itemRepository.findById(name)
-                .orElseThrow(() -> new ItemNotFoundException(String.format("The item '%s' was not found.", name)));
+                .orElseThrow(() -> new ItemNotFoundException(name));
         item.setIngredients(getIngredientsOf(item));
         return item;
     }
@@ -42,22 +44,21 @@ public class ItemService extends AbstractService<Item, String> {
     public List<Item> getIngredientsOf(Item item) {
         List<Item> items = new ArrayList<>();
         List<Ingredient> ingredients = ingredientService.findById(item);
-        if (!ingredients.isEmpty())
+        if (!ingredients.isEmpty()) {
             for (Ingredient ingredient : ingredients) {
                 Item aux = findByName(ingredient.getId().getIngredient().getName());
                 aux.setQuantity(ingredient.getQuantity());
                 aux.setIngredients(getIngredientsOf(aux));
                 items.add(aux);
             }
+        }
         return items;
     }
 
     public List<String> findAllItemNameByProficiency(String proficiency) {
-        List<Item> items = itemRepository.findByProficiencyName(proficiency);
-        List<String> list = new ArrayList<>(items.size());
-        for (Item item : items)
-            list.add(item.getName());
-        return list;
+        return itemRepository.findByProficiencyName(proficiency).stream()
+                .map(Item::getName)
+                .collect(Collectors.toList());
     }
 
 }
