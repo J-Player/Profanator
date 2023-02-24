@@ -1,7 +1,6 @@
-package profanator.controller;
+package profanator.controllers;
 
 import javafx.beans.binding.BooleanBinding;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,18 +9,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import profanator.model.Item;
-import profanator.service.ItemService;
-import profanator.service.ProficiencyService;
-import profanator.util.Crafter;
+import profanator.domains.Item;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Component
 public class MainControllerFX {
@@ -56,29 +48,11 @@ public class MainControllerFX {
     @FXML
     private CheckMenuItem aoTCheckMenuItem;
 
-    @Autowired
-    private ProficiencyService proficiencyService;
-    @Autowired
-    private ItemService itemService;
-
     private Stage stage;
 
     public void initialize() {
         aoTCheckMenuItem.selectedProperty().addListener((event) -> stage.setAlwaysOnTop(aoTCheckMenuItem.isSelected()));
-        List<String> list = proficiencyService.findAll();
-        proficiencyComboBox.setItems(FXCollections.observableList(list));
-        proficiencyComboBox.disableProperty().bind(proficiencyComboBox.itemsProperty().isNull());
-        Map<String, ObservableList<String>> items = new HashMap<>();
-        for (String proficiency : proficiencyComboBox.getItems()) {
-            List<String> itemList = itemService.findAllItemNameByProficiency(proficiency);
-            items.put(proficiency, FXCollections.observableList(itemList));
-        }
-        proficiencyComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (items.containsKey(newValue)) {
-                itemComboBox.setItems(items.get(newValue));
-                itemComboBox.setValue(items.get(newValue).get(0));
-            }
-        });
+
         itemComboBox.disableProperty().bind(proficiencyComboBox.valueProperty().isNull());
         itemComboBox.valueProperty().addListener(event -> {
             String proficiency = proficiencyComboBox.getValue();
@@ -107,24 +81,7 @@ public class MainControllerFX {
         });
     }
 
-    private void calculate() {
-        String name = itemComboBox.getValue();
-        int quantity = Integer.parseInt(quantityTextField.getText());
-        quantityTextField.setText("");
-        quantity = quantity > 0 ? quantity : 1;
-        Item item = itemService.findByName(name);
-        item.setQuantity(quantity);
-        Crafter crafter = new Crafter(item);
-        Thread thread = new Thread(crafter);
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        item = crafter.getItem();
-        getResult(item);
-    }
+    private void calculate() {}
 
     private Image changeImage(String proficiency, String itemname) {
         itemname = itemname.replaceAll("\\s", "_");
@@ -170,7 +127,7 @@ public class MainControllerFX {
         if (restQt > 0)
             value = value.concat(String.format(" [rest: %s]", restQt));
         ImageView imageView = new ImageView();
-        String proficiency = item.getProficiency() != null ? item.getProficiency().getName() : null;
+        String proficiency = item.getProficiency() != null ? item.getProficiency() : null;
         imageView.setImage(changeImage(proficiency, item.getName()));
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
