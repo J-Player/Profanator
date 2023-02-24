@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-import profanator.controller.MainControllerFX;
+import profanator.controllers.MainControllerFX;
 
 import java.io.IOException;
 import java.net.URL;

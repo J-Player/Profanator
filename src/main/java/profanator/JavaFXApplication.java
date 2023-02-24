@@ -19,7 +19,6 @@ public class JavaFXApplication extends Application {
                 ac -> {
                     ac.registerBean(Application.class, () -> JavaFXApplication.this);
                     ac.registerBean(Parameters.class, this::getParameters);
-//                    ac.registerBean(HostServices.class, this::getHostServices);
                 };
         applicationContext = new SpringApplicationBuilder()
                 .sources(Main.class)
