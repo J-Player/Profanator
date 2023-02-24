@@ -1,24 +1,10 @@
-package profanator.util;
+package profanator.utils;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import profanator.model.Item;
+import profanator.domains.Item;
 
-import javax.validation.constraints.NotNull;
+public abstract class Crafter {
 
-@Getter
-@AllArgsConstructor
-public class Crafter implements Runnable {
-
-    @NotNull
-    private final Item item;
-
-    @Override
-    public void run() {
-        calculate(item);
-    }
-
-    private void calculate(Item item) {
+    public static Item calculate(Item item) {
         if (item.getQtByProduction() > 1) {
             if (item.getQuantity() < item.getQtByProduction()) {
                 item.setRestQt(item.getQtByProduction() - item.getQuantity());
@@ -34,6 +20,7 @@ public class Crafter implements Runnable {
             if (!ingredient.getIngredients().isEmpty())
                 calculate(ingredient);
         }
+        return item;
     }
 
 }
