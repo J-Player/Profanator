@@ -1,20 +1,34 @@
 package profanator.domains;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 @Data
-public class Item implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+@Document(collection = "items")
+public class Item {
 
-    private UUID id;
+    @Id
+    private ObjectId id;
     private String proficiency;
     private String name;
     private Integer qtByProduction;
+
+    @Transient
     private List<Item> ingredients;
+
+    @Transient
     private Integer quantity;
-    private transient Integer restQt;
+
+    @Transient
+    private Integer restQt;
 
 }
