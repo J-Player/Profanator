@@ -1,54 +1,32 @@
 package profanator.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import profanator.domains.Item;
+import profanator.repositories.ItemRepository;
 import profanator.services.IService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ItemService implements IService<Item> {
 
-    private final WebClient webClient;
+    private final ItemRepository repository;
 
     @Override
-    public Mono<Item> findById(UUID id) {
-        return webClient.get()
-                .uri("/{id}", id)
-                .retrieve()
-                .bodyToMono(Item.class);
+    public Mono<Item> findById(ObjectId id) {
+        return repository.findById(id);
     }
 
     @Override
     public Flux<Item> findAll() {
-        return webClient.get()
-                .uri("/all")
-                .retrieve()
-                .bodyToFlux(Item.class);
+        return repository.findAll();
     }
 
     public Flux<Item> findAllByProficiency(String proficiency) {
-        return webClient.get()
-                .uri(builder -> builder
-                        .path("/all")
-                        .queryParam("proficiency", proficiency)
-                        .build())
-                .retrieve()
-                .bodyToFlux(Item.class);
-    }
-
-    public Mono<Item> findByName(String name) {
-        return webClient.get()
-                .uri(builder -> builder
-                        .queryParam("name", name)
-                        .build())
-                .retrieve()
-                .bodyToMono(Item.class);
+        return repository.findByProficiency(proficiency);
     }
 
 }
