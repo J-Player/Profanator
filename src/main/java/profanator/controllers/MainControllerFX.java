@@ -9,12 +9,22 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import profanator.domains.Item;
+import profanator.domains.Proficiency;
+import profanator.services.impl.ItemService;
+import profanator.services.impl.ProficiencyService;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import static javafx.collections.FXCollections.observableList;
+
+@Slf4j
 @Component
 public class MainControllerFX {
 
@@ -48,16 +58,34 @@ public class MainControllerFX {
     @FXML
     private CheckMenuItem aoTCheckMenuItem;
 
+    @Setter
     private Stage stage;
 
+    @Autowired
+    private ProficiencyService proficiencyService;
+
+    @Autowired
+    private ItemService itemService;
+
     public void initialize() {
-        aoTCheckMenuItem.selectedProperty().addListener((event) -> stage.setAlwaysOnTop(aoTCheckMenuItem.isSelected()));
+        aoTCheckMenuItem.selectedProperty().addListener(event -> stage.setAlwaysOnTop(aoTCheckMenuItem.isSelected()));
+
+        proficiencyService.findAll(Sort.by("name"))
+                .map(Proficiency::getName)
+                .collectList()
+                .doOnSuccess(proficiencies -> proficiencyComboBox.setItems(observableList(proficiencies)));
+
+        proficiencyComboBox.valueProperty().addListener((observable, oldValue, newValue) ->
+                itemService.findAllByProficiency(newValue)
+                .map(Item::getName)
+                .collectList()
+                .doOnSuccess(items -> itemComboBox.setItems(observableList(items))));
 
         itemComboBox.disableProperty().bind(proficiencyComboBox.valueProperty().isNull());
         itemComboBox.valueProperty().addListener(event -> {
             String proficiency = proficiencyComboBox.getValue();
-            String itemname = itemComboBox.getValue();
-            if (itemname != null) itemImageView.setImage(changeImage(proficiency, itemname));
+            String itemName = itemComboBox.getValue();
+            if (itemName != null) itemImageView.setImage(changeImage(proficiency, itemName));
         });
         proficiencyComboBox.setEditable(false);
         itemComboBox.setEditable(false);
@@ -138,10 +166,6 @@ public class MainControllerFX {
         else
             root.setValue(root.getValue().replaceAll("[\\[\\]]", ""));
         return root;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
     }
 
 }
