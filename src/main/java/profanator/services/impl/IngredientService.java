@@ -1,7 +1,6 @@
 package profanator.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import profanator.domains.Ingredient;
 import profanator.repositories.IngredientRepository;
@@ -16,7 +15,7 @@ public class IngredientService implements IService<Ingredient> {
     private final IngredientRepository repository;
 
     @Override
-    public Mono<Ingredient> findById(ObjectId id) {
+    public Mono<Ingredient> findById(Long id) {
         return repository.findById(id);
     }
 
