@@ -3,21 +3,20 @@ package profanator.domains;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "items")
+@Table
 public class Item {
 
     @Id
-    private ObjectId id;
+    private Long id;
     private String proficiency;
     private String name;
     private Integer qtByProduction;

@@ -1,11 +1,9 @@
 package profanator.repositories;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
-import profanator.domains.Item;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.data.repository.reactive.ReactiveSortingRepository;
 import profanator.domains.Proficiency;
 
-import java.util.UUID;
-
-public interface ProficiencyRepository extends ReactiveMongoRepository<Proficiency, ObjectId> {
+public interface ProficiencyRepository extends ReactiveCrudRepository<Proficiency, Long>,
+        ReactiveSortingRepository<Proficiency, Long> {
 }

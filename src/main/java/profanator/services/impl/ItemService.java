@@ -1,7 +1,6 @@
 package profanator.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import profanator.domains.Item;
 import profanator.repositories.ItemRepository;
@@ -16,7 +15,7 @@ public class ItemService implements IService<Item> {
     private final ItemRepository repository;
 
     @Override
-    public Mono<Item> findById(ObjectId id) {
+    public Mono<Item> findById(Long id) {
         return repository.findById(id);
     }
 

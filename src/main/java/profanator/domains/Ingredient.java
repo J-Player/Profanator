@@ -3,16 +3,15 @@ package profanator.domains;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "ingredients")
+@Table
 public class Ingredient {
 
-    private ObjectId id;
+    private Long id;
     private String product;
     private String name;
     private Integer quantity;

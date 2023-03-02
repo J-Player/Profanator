@@ -1,14 +1,12 @@
 package profanator;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import profanator.controllers.MainControllerFX;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * <p>Autor: João Pedro R. Diniz</p>
@@ -17,35 +15,40 @@ import profanator.controllers.MainControllerFX;
  * <p>Versão atual: 0.0.1</p>
  */
 @SpringBootApplication
-public class Main extends Application {
+public class Main extends JFrame {
 
-    private ConfigurableApplicationContext context;
-
-    @Override
-    public void init() {
-        context = new SpringApplicationBuilder(getClass())
-                .run(getParameters().getRaw().toArray(new String[0]));
+    public Main() {
+        initUI();
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/fxml/index.fxml"));
-        Parent root = loader.load();
-        MainControllerFX controller = loader.getController();
-        controller.setStage(stage);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+    private void initUI() {
+        JButton quitButton = new JButton("Quit");
+        quitButton.addActionListener((ActionEvent event) -> System.exit(0));
+        createLayout(quitButton);
+        setTitle("Quit button");
+        setSize(300, 200);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void stop() {
-        context.close();
+    private void createLayout(JComponent... arg) {
+        Container pane = getContentPane();
+        GroupLayout gl = new GroupLayout(pane);
+        pane.setLayout(gl);
+        gl.setAutoCreateContainerGaps(true);
+        gl.setHorizontalGroup(gl.createSequentialGroup()
+                .addComponent(arg[0]));
+        gl.setVerticalGroup(gl.createSequentialGroup()
+                .addComponent(arg[0]));
     }
 
     public static void main(String[] args) {
-        launch(args);
+        ConfigurableApplicationContext ctx = new SpringApplicationBuilder(Main.class)
+                .headless(false).run(args);
+        EventQueue.invokeLater(() -> {
+            Main ex = ctx.getBean(Main.class);
+            ex.setVisible(true);
+        });
     }
 
 }

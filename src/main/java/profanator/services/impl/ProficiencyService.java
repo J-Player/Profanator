@@ -1,7 +1,6 @@
 package profanator.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import profanator.domains.Proficiency;
@@ -17,7 +16,7 @@ public class ProficiencyService implements IService<Proficiency> {
     private final ProficiencyRepository repository;
 
     @Override
-    public Mono<Proficiency> findById(ObjectId id) {
+    public Mono<Proficiency> findById(Long id) {
         return repository.findById(id);
     }
 
