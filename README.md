@@ -12,7 +12,7 @@ O programa é simples e bem intuitivo.
 4. Clique em **Calculate** e pronto!
 
 # [Características](https://github.com/J-Player/Profanator#características)
-- [x] Até o momento, o programa tem um total de **184 itens** catalogados manualmente.
+- [x] Até o momento, o programa tem um total de **183 itens** catalogados manualmente.
 - [x] Cálculo preciso: Alguns itens são produzidos em mais de uma unidade (**ex.: *Iron Nails* - três unidades por
   produção**), o programa calculará e, se for necessário, ajustará a quantidade e exibirá no resultado o **resto** do
   cálculo, ou seja, a quantidade que sobrará após criar os itens.
