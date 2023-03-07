@@ -1,12 +1,15 @@
 package profanator;
 
+import javafx.application.Application;
+import javafx.application.HostServices;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import org.springframework.context.support.GenericApplicationContext;
+import profanator.events.StageReadyEvent;
 
 /**
  * <p>Autor: João Pedro R. Diniz</p>
@@ -15,40 +18,36 @@ import java.awt.event.ActionEvent;
  * <p>Versão atual: 0.0.1</p>
  */
 @SpringBootApplication
-public class Main extends JFrame {
+public class Main extends Application {
 
-    public Main() {
-        initUI();
-    }
-
-    private void initUI() {
-        JButton quitButton = new JButton("Quit");
-        quitButton.addActionListener((ActionEvent event) -> System.exit(0));
-        createLayout(quitButton);
-        setTitle("Quit button");
-        setSize(300, 200);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    private void createLayout(JComponent... arg) {
-        Container pane = getContentPane();
-        GroupLayout gl = new GroupLayout(pane);
-        pane.setLayout(gl);
-        gl.setAutoCreateContainerGaps(true);
-        gl.setHorizontalGroup(gl.createSequentialGroup()
-                .addComponent(arg[0]));
-        gl.setVerticalGroup(gl.createSequentialGroup()
-                .addComponent(arg[0]));
-    }
+    private ConfigurableApplicationContext context;
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = new SpringApplicationBuilder(Main.class)
-                .headless(false).run(args);
-        EventQueue.invokeLater(() -> {
-            Main ex = ctx.getBean(Main.class);
-            ex.setVisible(true);
-        });
+        launch(args);
+    }
+
+    @Override
+    public void init() {
+        ApplicationContextInitializer<GenericApplicationContext> initializer = ac -> {
+            ac.registerBean(Application.class, () -> this);
+            ac.registerBean(Parameters.class, this::getParameters);
+            ac.registerBean(HostServices.class, this::getHostServices);
+        };
+        context = new SpringApplicationBuilder()
+                .sources(Main.class)
+                .initializers(initializer)
+                .run(getParameters().getRaw().toArray(new String[0]));
+    }
+
+    @Override
+    public void start(Stage stage) {
+        context.publishEvent(new StageReadyEvent(stage));
+    }
+
+    @Override
+    public void stop() {
+        context.close();
+        Platform.exit();
     }
 
 }
