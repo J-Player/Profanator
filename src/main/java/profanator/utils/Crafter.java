@@ -2,9 +2,9 @@ package profanator.utils;
 
 import profanator.domains.Item;
 
-public abstract class Crafter {
+public interface Crafter {
 
-    public static Item calculate(Item item) {
+    static Item calculate(Item item) {
         if (item.getQtByProduction() > 1) {
             if (item.getQuantity() < item.getQtByProduction()) {
                 item.setRestQt(item.getQtByProduction() - item.getQuantity());
