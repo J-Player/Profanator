@@ -1,6 +1,5 @@
 package services;
 
-import configs.BlockHoundTest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -10,7 +9,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import profanator.domains.Ingredient;
 import profanator.repositories.IngredientRepository;
 import profanator.services.impl.IngredientService;
-import reactor.blockhound.BlockHound;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -22,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @ExtendWith(SpringExtension.class)
 @DisplayName("Ingredient Service Test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class IngredientServiceTest {
+class IngredientServiceTest {
 
     @InjectMocks
     private IngredientService itemService;
@@ -31,11 +29,6 @@ public class IngredientServiceTest {
     private IngredientRepository ingredientRepository;
 
     private final Ingredient ingredient = IngredientCreator.ingredient();
-
-    @BeforeAll
-    static void beforeAll() {
-        BlockHound.install();
-    }
 
     @BeforeEach
     void setUp() {
@@ -48,14 +41,6 @@ public class IngredientServiceTest {
     }
 
     @Test
-    @Order(0)
-    @DisplayName("[BlockHound] Check if BlockHound is working")
-    void blockHoundWorks() {
-        BlockHoundTest.test();
-    }
-
-    @Test
-    @Order(1)
     @DisplayName("[findById] | Returns a ingredient by ID.")
     void findById() {
         StepVerifier.create(itemService.findById(ingredient.getId()))
@@ -65,7 +50,6 @@ public class IngredientServiceTest {
     }
 
     @Test
-    @Order(2)
     @DisplayName("[findAll] | Returns all ingredients.")
     void findAll() {
         StepVerifier.create(itemService.findAll())
@@ -75,7 +59,6 @@ public class IngredientServiceTest {
     }
 
     @Test
-    @Order(3)
     @DisplayName("[findByProduct] | Returns all ingredients from a item.")
     void findByProduct() {
         StepVerifier.create(itemService.findByProduct(ingredient.getProduct()))

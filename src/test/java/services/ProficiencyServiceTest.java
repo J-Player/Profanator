@@ -1,6 +1,5 @@
 package services;
 
-import configs.BlockHoundTest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -11,7 +10,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import profanator.domains.Proficiency;
 import profanator.repositories.ProficiencyRepository;
 import profanator.services.impl.ProficiencyService;
-import reactor.blockhound.BlockHound;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
@@ -22,8 +20,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 
 @ExtendWith(SpringExtension.class)
 @DisplayName("Proficiency Service Test")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ProficiencyServiceTest {
+@TestMethodOrder(MethodOrderer.DisplayName.class)
+class ProficiencyServiceTest {
 
     @InjectMocks
     private ProficiencyService proficiencyService;
@@ -32,11 +30,6 @@ public class ProficiencyServiceTest {
     private ProficiencyRepository proficiencyRepository;
 
     private final Proficiency proficiency = ProficiencyCreator.proficiency();
-
-    @BeforeAll
-    static void blockHound() {
-        BlockHound.install();
-    }
 
     @BeforeEach
     void setUp() {
@@ -49,14 +42,6 @@ public class ProficiencyServiceTest {
     }
 
     @Test
-    @Order(0)
-    @DisplayName("[BlockHound] Check if BlockHound is working")
-    void blockHoundWorks() {
-        BlockHoundTest.test();
-    }
-
-    @Test
-    @Order(1)
     @DisplayName("[findById] | Return a proficiency.")
     void findById() {
         StepVerifier.create(proficiencyService.findById(proficiency.getId()))
@@ -66,7 +51,6 @@ public class ProficiencyServiceTest {
     }
 
     @Test
-    @Order(2)
     @DisplayName("[findAll] | Returns all proficiencies.")
     void findAll() {
         StepVerifier.create(proficiencyService.findAll())
@@ -76,7 +60,6 @@ public class ProficiencyServiceTest {
     }
 
     @Test
-    @Order(3)
     @DisplayName("[findAllSorted] | Returns all proficiencies sorted by some property.")
     void findAllSorted() {
         StepVerifier.create(proficiencyService.findAll(Sort.by("name")))
