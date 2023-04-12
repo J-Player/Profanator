@@ -23,7 +23,6 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test:3.5.4'
-    testImplementation 'io.projectreactor.tools:blockhound:1.0.7.RELEASE'
 }
 
 javafx {
@@ -32,6 +31,5 @@ javafx {
 }
 
 test {
-    jvmArgs = ['-XX:+AllowRedefinitionToAddDeleteMethods']
     useJUnitPlatform()
 }
