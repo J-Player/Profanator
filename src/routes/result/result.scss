@@ -1,0 +1,7 @@
+@use '../../styles/partials/colors' as *;
+@use '../../styles/partials/fonts' as *;
+
+@media(min-width: 480px) {} //tablets
+@media(min-width: 768px) {} //desktops menores e laptops
+@media(min-width: 1024px) {} //desktops
+@media(min-width: 1200px) {} //TV

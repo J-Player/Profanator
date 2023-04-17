@@ -1,0 +1,11 @@
+@use './styles/partials/colors' as *;
+@use './styles/partials/fonts' as *;
+
+#app {
+    background-color: $color_light_purple;
+    background-image: linear-gradient($color_purple, $color_dark_purple);
+    border: 1px solid $color_yellow;
+    font-family: $font_family_d_din;
+    height: calc(100% - 2px);
+    color: white;
+}

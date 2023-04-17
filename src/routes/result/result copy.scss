@@ -1,0 +1,83 @@
+@use '../../styles/partials/colors' as *;
+@use '../../styles/partials/fonts' as *;
+
+.container {
+    background-image: linear-gradient($color_purple, $color_dark_purple);
+    border: 2px solid $color_yellow;
+    color: white;
+    .result-container {
+        #result-tree-view {
+            background-color: $color_dark_purple;
+            border: none;
+            border-radius: 3px;
+            outline: 3px solid $color_yellow;
+            overflow: auto;
+            box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.5);
+        }
+        & > div:last-child {
+            button {
+                background-color: $color_yellow;
+                border: none;
+                border-radius: 3px;
+                padding: 10px;
+                &:hover {
+                    background-color: $color_dark_yellow;
+                    outline: 3px solid $color_yellow;
+                }
+            }
+        }
+    }
+}
+
+@media(min-width: 480px) {
+    .container {
+        font-size: 20pt;
+        height: calc(100% - 6px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .result-container {
+            height: 100%;
+            width: 100%;
+            display: inherit;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 10px;
+            #result-tree-view {
+                height: 90%;
+                width: 100%;
+                overflow: auto;
+                .item {
+                    margin-left: 30px;
+                    img {
+                        height: 18pt;
+                        margin-right: 10px;
+                    }
+                    .list-item {
+                        margin-left: 10%;
+                        del {
+                            opacity: 50%;
+                        }
+                    }
+                }
+            }
+            & > div:last-child {
+                display: inherit;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 20%;
+                button {
+                    font-size: 16pt;
+                    width: 15%;
+                }
+            }
+        }
+    }
+} //tablets
+
+@media(min-width: 768px) {} //desktops menores e laptops
+@media(min-width: 1024px) {} //desktops
+@media(min-width: 1200px) {} //TV
+
+

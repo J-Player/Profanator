@@ -1,0 +1,36 @@
+@font-face {
+    font-family: acumin-pro-condensed;
+    src: url('fonts/acumin-pro-condensed.woff2');
+}
+
+@font-face {
+    font-family: barlow-extra-light;
+    src: url('fonts/barlow-extra-light.woff2');
+}
+
+@font-face {
+    font-family: barlow-medium;
+    src: url('fonts/barlow-medium.woff2');
+}
+
+@font-face {
+    font-family: d-din-condensed;
+    src: url('fonts/d-din-condensed.woff2');
+}
+
+@font-face {
+    font-family: d-din;
+    src: url('fonts/d-din.woff2');
+}
+
+@font-face {
+    font-family: profane;
+    src: url('fonts/profane.woff2');
+}
+
+$font_family_acumin_pro_condensed: acumin-pro-condensed;
+$font_family_barlow_extra_light: barlow-extra-light;
+$font_family_barlow_medium: barlow-medium;
+$font_family_d_din_condensed: d-din-condensed;
+$font_family_d_din: d-din;
+$font_family_profane: profane;
