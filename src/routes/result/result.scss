@@ -1,7 +1,54 @@
 @use '../../styles/partials/colors' as *;
 @use '../../styles/partials/fonts' as *;
 
-@media(min-width: 480px) {} //tablets
+@media(min-width: 480px) {
+    .container {
+        .main-container {
+            height: 90%;
+            width: 85%;
+            .tree-view-container {
+                background-color: $color_dark_purple;
+                box-shadow: inset 0px 0px 5px 10px rgba(0, 0, 0, 0.1);
+                border: 2px solid $color_dark_yellow;
+                overflow: auto;
+                height: 100%;
+                width: 100%;
+                .item-container {
+                    padding-right: 10px;
+                    width: 100%;
+                    .item {
+                        background-color: $color_purple;
+                        border: 0.5px solid $color_dark_yellow;
+                        display: flex;
+                        column-gap: 10px;
+                        align-items: center;
+                    }
+                    .item-image {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-height: 50px;
+                        min-width: 50px;
+                    }
+                    .list-item {
+                        margin-left: 50px;
+                        del {
+                            opacity: 50%;
+                        }
+                    }
+                }
+            }
+            & > div:last-child {
+                display: inherit;
+                justify-content: inherit;
+                align-items: inherit;
+                width: 100%;
+            }
+        }
+    }
+} //tablets
 @media(min-width: 768px) {} //desktops menores e laptops
 @media(min-width: 1024px) {} //desktops
 @media(min-width: 1200px) {} //TV
+
+
