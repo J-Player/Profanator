@@ -1,10 +1,19 @@
+@use './partials/colors' as *;
 @use './partials/fonts' as *;
+
+@layer base {
+    input[type='number']::-webkit-outer-spin-button,
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number'] {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: content-box;
-    font-family: $font_family_barlow_medium;
 }
 
 html, body, #root {
