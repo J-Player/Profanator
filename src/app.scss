@@ -5,7 +5,25 @@
     background-color: $color_light_purple;
     background-image: linear-gradient($color_purple, $color_dark_purple);
     border: 1px solid $color_yellow;
-    font-family: $font_family_d_din;
+    font-family: $font_family_barlow_medium;
     height: calc(100% - 2px);
     color: white;
+}
+
+button {
+    background-color: $color_dark_yellow;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    &:hover:not(:disabled), &:focus:not(:disabled) {
+        cursor: pointer;
+        background-color: $color_yellow;
+        box-shadow: 0px 0px 15px $color_yellow;
+    }
+    min-width: 20%;
+    a {
+        color: black;
+        text-decoration: none;
+    }
 }
