@@ -1,6 +1,3 @@
-# AVISO
-```Uma nova versão está sendo desenvolvida utilizando JavaScript. Versões anteriores em Java não terão mais suporte.```
-
 # [Profanator](https://github.com/J-Player/Profanator#)
 **Profanator** é uma *calculadora de itens* para o jogo **Profane**.
 
