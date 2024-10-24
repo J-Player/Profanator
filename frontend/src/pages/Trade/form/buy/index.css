@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.trade-section .buy-form-wrapper {
+	@apply flex
+	flex-col
+	gap-4
+	p-4;
+	form {
+		@apply flex
+        flex-col
+        gap-4
+        p-[inherit];
+		input,
+		button {
+			@apply grow;
+		}
+		div {
+			@apply flex
+            items-center
+            gap-[inherit];
+		}
+		input,
+		button {
+			@apply grow h-full;
+		}
+	}
+	table {
+		@apply text-left text-dark-blue;
+		th,
+		td {
+			@apply p-4;
+		}
+		thead {
+			th {
+				@apply cursor-pointer border-b-orange;
+				&:hover,
+				&.active {
+					@apply text-orange;
+					&.asc {
+						@apply after:content-['_⬇'];
+					}
+					&.desc {
+						@apply after:content-['_⬆'];
+					}
+				}
+			}
+		}
+		tbody {
+			tr {
+				@apply border-y border-light-gray;
+			}
+			.item {
+				@apply flex gap-4 items-center;
+			}
+			.menu {
+				@apply flex gap-4 justify-end;
+				button {
+					@apply border px-2 py-1 rounded;
+
+					&.btn-contact {
+						&:hover,
+						&:focus {
+							@apply bg-dark-blue text-white;
+						}
+					}
+
+					&.btn-ignore {
+						@apply text-red;
+						&:hover {
+							@apply bg-red text-white;
+						}
+					}
+				}
+			}
+		}
+	}
+}

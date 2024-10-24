@@ -1,0 +1,18 @@
+section {
+    h1 {
+        @apply text-2xl text-center;
+    }
+    
+    h2 {
+        @apply text-xl;
+    }
+    
+    h3 {
+        @apply text-lg;
+    }
+    
+    h4 {
+        @apply text-base;
+    }
+    
+}

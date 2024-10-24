@@ -1,0 +1,14 @@
+# backend
+**/build
+**/.gradle
+
+# frontend
+**/node_modules
+*.md
+*.env
+*.txt
+*.json
+
+!package.json
+!tsconfig*.json
+!README.md
