@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+main {
+	@apply bg-white
+    text-dark-blue
+    rounded-lg
+    min-h-[100vh]
+    h-full w-[80%]
+    p-20 my-[20vh]
+    mx-auto;
+}

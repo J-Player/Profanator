@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.calculator-section {
+	@apply flex
+	flex-col
+	gap-4
+	p-4;
+	form {
+		@apply flex
+        flex-col
+        gap-4
+        p-[inherit];
+		select,
+		input,
+		button {
+			@apply grow h-full px-2 py-1;
+		}
+		div {
+			@apply flex
+			h-full
+            items-center
+            gap-[inherit];
+		}
+	}
+	
+}

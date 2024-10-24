@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.home-section {
+	@apply gap-4;
+	h1 {
+		@apply text-left;
+	}
+	div {
+		@apply gap-1;
+		&:not(.line) {
+			@apply flex flex-col w-[calc(100%-1rem)];
+		}
+		&.line {
+			@apply bg-orange w-full h-[2px] mb-4;
+		}
+	}
+	a {
+		@apply underline text-blue-700;
+	}
+	p {
+		@apply indent-4;
+	}
+}

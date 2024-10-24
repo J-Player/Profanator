@@ -1,0 +1,14 @@
+.economy-section {
+    form {
+        @apply flex
+        gap-4;
+        div {
+            @apply flex
+            items-center
+            gap-4;
+        }
+        input {
+            @apply grow;
+        }
+    }
+}
