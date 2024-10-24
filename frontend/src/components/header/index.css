@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+header {
+	@apply bg-dark-blue
+    text-white
+    flex
+    justify-between
+    h-[10vh]
+    w-full
+    sticky
+    overflow-hidden
+    gap-[10vw]
+    top-0;
+}
+
+header button {
+	@apply bg-transparent
+    text-inherit
+    px-3 py-1
+    transition-all
+    duration-[0.2s];
+	&:hover {
+		@apply cursor-pointer;
+	}
+}
+
+.header-title {
+	@apply self-center
+    ml-[5%]
+    text-2xl
+    select-none;
+}
+
+.header-nav {
+	@apply flex-1 
+    justify-center
+    h-full;
+}
+
+.header-menu {
+	@apply mr-[10vw]
+    h-full
+    flex
+    items-center
+    gap-4;
+}
+
+.header-menu .btn-register,
+.header-menu .btn-login {
+	@apply
+    bg-transparent
+    border-white
+    text-white;
+	&:hover, &:focus {
+		@apply bg-white
+        text-dark-blue;
+	}
+}
+
+.header-profile {
+	@apply self-center
+    flex
+    justify-center
+    flex-col
+    items-center
+    gap-4
+    bg-whitesmoke 
+    h-full
+    w-[15vw]
+    text-black
+    p-4;
+}
+
+.header-profile .btn-logout {
+	@apply no-underline
+    border
+    rounded-lg
+    border-red
+    text-red;
+	&:hover {
+		@apply bg-red
+        text-white;
+	}
+}

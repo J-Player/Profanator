@@ -1,0 +1,17 @@
+# IDE
+.vscode
+
+# backend
+**/build
+**/.gradle
+
+# frontend
+**/node_modules
+**/dist
+*.md
+*.env
+*.txt
+
+!package.json
+!tsconfig*.json
+!README.md

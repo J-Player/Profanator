@@ -1,0 +1,38 @@
+.result-wrapper {
+	@apply flex
+    flex-col
+    gap-4
+    items-center
+    p-4;
+	& > div {
+		@apply flex
+        flex-col
+        gap-[inherit]
+        p-4
+        min-w-[50%];
+
+		.item {
+			@apply flex
+            flex-col;
+			& > div:not(.ingredients) {
+				@apply flex
+                items-center
+                border
+                gap-4
+                p-4
+                -mt-[1px]
+                text-dark-blue
+                text-center;
+			}
+			.ingredients {
+				&,
+				.item {
+					@apply ml-6;
+				}
+			}
+		}
+	}
+	button {
+		@apply min-w-[50%];
+	}
+}

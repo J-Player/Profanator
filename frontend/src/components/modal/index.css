@@ -1,0 +1,32 @@
+.modal {
+	@apply fixed
+    inset-0
+    z-[1000]
+    bg-black/[0.5]
+    grid
+    place-items-center;
+	& > div {
+		@apply flex
+        justify-center
+        flex-col
+        bg-white
+        rounded
+        gap-4
+        p-4
+        z-[inherit]
+        sticky
+        top-1/2
+        -translate-y-1/2;
+		& > button {
+			@apply bg-transparent
+            border-none
+            outline-none
+            self-end
+            cursor-pointer;
+			&:hover,
+			&:focus {
+				@apply text-orange;
+			}
+		}
+	}
+}
