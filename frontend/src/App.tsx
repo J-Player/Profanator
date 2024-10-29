@@ -28,7 +28,6 @@ const Button = styled.button`
 const App = ({ className }: Props) => {
 	const [showButton, setShowButton] = useState(false)
 
-	//Sempre que pathname mudar => Volta para o topo da página.
 	const { pathname } = useLocation()
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: "smooth" })
