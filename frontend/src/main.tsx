@@ -7,6 +7,8 @@ import { GlobalStyle } from "./styles/global"
 import { ThemeProvider } from "styled-components"
 import { THEMES } from "./themes"
 import AppProvider from "./providers/AppProvider"
+// import dotconfig from "dotenv"
+// dotconfig.config()
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 	<React.StrictMode>
