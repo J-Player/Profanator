@@ -6,7 +6,7 @@ import Input from "../../../../components/input"
 import Trade from "../../../../models/Trade"
 import TradeService from "../../../../services/TradeService"
 import Pageable from "../../../../types/Pageable"
-import DataTable from "../../Datatable"
+import DataTable from "../../datatable"
 
 import "./index.css"
 
