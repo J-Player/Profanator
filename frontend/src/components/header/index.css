@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 header {
 	@apply bg-dark-blue
     text-white
@@ -49,11 +45,11 @@ header button {
 
 .header-menu .btn-register,
 .header-menu .btn-login {
-	@apply
-    bg-transparent
+	@apply bg-transparent
     border-white
     text-white;
-	&:hover, &:focus {
+	&:hover,
+	&:focus {
 		@apply bg-white
         text-dark-blue;
 	}

@@ -3,37 +3,35 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: "barlow";
-	src: url("../assets/fonts/barlow_medium.woff2") format("woff2");
+	font-family: 'barlow';
+	src: url('../assets/fonts/barlow_medium.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: "d_din";
-	src: url("../assets/fonts/d_din.woff2") format("woff2");
+	font-family: 'd_din';
+	src: url('../assets/fonts/d_din.woff2') format('woff2');
 }
 
 @font-face {
-	font-family: "profane";
-	src: url("../assets/fonts/profane.woff2") format("woff2");
+	font-family: 'profane';
+	src: url('../assets/fonts/profane.woff2') format('woff2');
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+	@apply m-0 p-0 box-border;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: "profane";
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-profane;
 }
 
 body {
-	background-color: black;
-	background-image: url('bg.jpg');
-	background-attachment: fixed;
-	background-size: cover;
-	backdrop-filter: grayscale(50%) brightness(.5);
-	font-family: "barlow";
+	@apply bg-profane-image bg-no-repeat bg-fixed bg-cover text-dark-blue backdrop-grayscale-[50%] backdrop-brightness-[50%] font-barlow;
 }
 
 input::-webkit-inner-spin-button,
