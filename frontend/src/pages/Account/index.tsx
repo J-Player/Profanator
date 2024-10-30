@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
-import useAuthContext from "../../hooks/useAuthContext"
-import { jwtDecode } from "jwt-decode"
+import { jwtDecode } from 'jwt-decode'
+import { useEffect } from 'react'
+import useAuthContext from '../../hooks/useAuthContext'
 
 interface AccountProps {
 	className?: string
@@ -8,14 +8,11 @@ interface AccountProps {
 
 const Account = ({ className }: AccountProps) => {
 	const { auth } = useAuthContext()
-	const [obj, setObj] = useState({})
-	useEffect(() => {
+	useEffect(() => {}, [])
 
-	}, [])
-
-	const teste =async () => {
+	const teste = async () => {
 		if (auth) {
-			let decoded = jwtDecode(auth?.accessToken)
+			const decoded = jwtDecode(auth?.accessToken)
 			console.log(`decoded: ${JSON.stringify(decoded)}`)
 		}
 		console.log(`teste: ${JSON.stringify(auth)}`)

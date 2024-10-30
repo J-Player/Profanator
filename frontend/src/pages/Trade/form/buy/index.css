@@ -5,8 +5,7 @@
 .trade-section .buy-form-wrapper {
 	@apply flex
 	flex-col
-	gap-4
-	p-4;
+	gap-4;
 	form {
 		@apply flex
         flex-col

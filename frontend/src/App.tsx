@@ -1,72 +1,43 @@
-import { Outlet, useLocation } from "react-router-dom"
-import Header from "./components/Header"
-import Main from "./components/Main"
-import Footer from "./components/Footer"
-import styled from "styled-components"
-import { Color } from "./themes"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
+import Main from './components/main'
+import Header from './components/header'
+import Button from './components/button'
+import Footer from './components/Footer'
+import { Icon } from './components/icon'
 
-interface Props {
-	className?: string
-}
-
-const Button = styled.button`
-	background-color: ${Color.ORANGE};
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	font-size: 1.5rem;
-	border: 1px solid black;
-	outline: none;
-	cursor: pointer;
-	position: sticky;
-	bottom: 3vw;
-	right: 3vw;
-	align-self: end;
-`
-
-const App = ({ className }: Props) => {
+const App = () => {
 	const [showButton, setShowButton] = useState(false)
 
 	const { pathname } = useLocation()
 	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: "smooth" })
+		window.scrollTo({ top: 0, behavior: 'smooth' })
 	}, [pathname])
 
 	useEffect(() => {
-		const listener = (e: Event) => {
+		const listener = () => {
 			setShowButton(window.scrollY !== 0)
 		}
-		addEventListener("scroll", listener)
-		return () => removeEventListener("scroll", listener)
+		addEventListener('scroll', listener)
+		return () => removeEventListener('scroll', listener)
 	}, [])
 
 	return (
-		<div className={className}>
+		<div className="relative flex flex-col items-center">
 			<Header />
 			<Main>
 				<Outlet />
 			</Main>
-			{showButton && <Button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>⬆</Button>}
+			{showButton && (
+				<Button
+					className="sticky bottom-4 right-4 mb-4 size-12 cursor-pointer self-end rounded-full border-2"
+					onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+					<Icon name="arrow-up" />
+				</Button>
+			)}
 			<Footer />
 		</div>
 	)
 }
 
-const StyledApp = styled(App)`
-	font-size: 1rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: relative;
-	${Main} {
-		& > section {
-			width: 100%;
-		}
-	}
-	${Footer} {
-		margin-top: 3vw;
-	}
-`
-
-export default StyledApp
+export default App

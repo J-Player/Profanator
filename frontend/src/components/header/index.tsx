@@ -1,32 +1,32 @@
-import { jwtDecode } from "jwt-decode"
-import { useEffect, useState } from "react"
-import useAuthContext from "../../hooks/useAuthContext"
+import { jwtDecode } from 'jwt-decode'
+import { useEffect, useState } from 'react'
+import useAuthContext from '../../hooks/useAuthContext'
 
-import { HeaderMenu } from "./HeaderMenu"
-import { HeaderNav } from "./HeaderNav"
-import { HeaderProfile } from "./HeaderProfile"
-import { HeaderRoot } from "./HeaderRoot"
-import { HeaderTitle } from "./HeaderTitle"
+import { HeaderRoot } from './HeaderRoot'
+import { HeaderMenu } from './HeaderMenu'
+import { HeaderNav } from './HeaderNav'
+import { HeaderProfile } from './HeaderProfile'
+import { HeaderTitle } from './HeaderTitle'
 
-import "./index.css"
+import './index.css'
 
 const Header = {
 	Root: HeaderRoot,
 	Title: HeaderTitle,
 	Nav: HeaderNav,
 	Profile: HeaderProfile,
-	Menu: HeaderMenu,
+	Menu: HeaderMenu
 }
 
 const menu = [
-	{ path: "/trade", name: "Trade" },
-	{ path: "/economy", name: "Economy" },
-	{ path: "/calculator", name: "Calculator" },
+	{ path: '/trade', name: 'Trade' },
+	{ path: '/economy', name: 'Economy' },
+	{ path: '/calculator', name: 'Calculator' }
 ]
 
-interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
+type HeaderProps = React.HTMLAttributes<HTMLDivElement>
 
-export default ({ className }: HeaderProps) => {
+const HeaderComponent = ({ className }: HeaderProps) => {
 	const { auth } = useAuthContext()
 	const [user, setUser] = useState<string>()
 
@@ -39,13 +39,17 @@ export default ({ className }: HeaderProps) => {
 
 	return (
 		<Header.Root className={className}>
-			<Header.Title className='header-title' text='Profanator' />
-			<Header.Nav className='header-nav' menu={menu} />
+			<Header.Title className="header-title" text="Profanator" />
+			<Header.Nav className="header-nav" menu={menu} />
 			{auth && user ? (
-				<Header.Profile className='header-profile' username={user} />
+				<Header.Profile className="header-profile" username={user} />
 			) : (
-				<Header.Menu className='header-menu' />
+				<Header.Menu className="header-menu" />
 			)}
 		</Header.Root>
 	)
 }
+
+HeaderComponent.displayName = 'Header'
+
+export default HeaderComponent

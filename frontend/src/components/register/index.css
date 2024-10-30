@@ -9,9 +9,9 @@
     gap-4
     min-h-[60vh]
     min-w-[60vh];
-    form {
-        @apply flex flex-col gap-[inherit];
-    }
+	form {
+		@apply flex flex-col gap-[inherit];
+	}
 	p {
 		@apply hidden
         rounded-md

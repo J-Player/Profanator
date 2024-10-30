@@ -1,47 +1,47 @@
-import { useEffect } from "react"
-import { createPortal } from "react-dom"
-import styled from "styled-components"
-import usePortal from "../../hooks/usePortal"
+import { useEffect } from 'react'
+import usePortal from '../../hooks/usePortal'
 
 type ModalProps = {
-	className?: string
 	show: boolean
-	onClose: Function
+	onClose: () => void
 	children: React.ReactNode
 }
 
-const Modal = ({ className, children, show, onClose: close }: ModalProps) => {
-	const overlay = document.getElementById("overlay")
+const Modal = ({ children, show, onClose: close }: ModalProps) => {
 	const handlerClose = () => {
-		if (document.body.style.overflow === "hidden") document.body.style.overflow = "visible"
+		if (document.body.style.overflow === 'hidden') document.body.style.overflow = 'visible'
 		close()
 	}
 	useEffect(() => {
 		const keyListener = (e: KeyboardEvent) => {
-			if (e.key === "Escape") handlerClose()
+			if (e.key === 'Escape') handlerClose()
 		}
 		const clickListener = (e: MouseEvent) => {
 			if (!(e.target instanceof HTMLDivElement)) return
-			if (e.target.className === className) handlerClose()
+			if (e.target.id === 'modal') handlerClose()
 		}
-		addEventListener("keyup", keyListener)
-		addEventListener("click", clickListener)
+		addEventListener('keyup', keyListener)
+		addEventListener('click', clickListener)
 		return () => {
-			removeEventListener("keyup", keyListener)
-			removeEventListener("click", clickListener)
+			removeEventListener('keyup', keyListener)
+			removeEventListener('click', clickListener)
 		}
 	}, [])
 
 	useEffect(() => {
-		document.body.style.overflow = show ? "hidden" : "visible"
+		document.body.style.overflow = show ? 'hidden' : 'visible'
 	}, [show])
 
 	if (show) {
 		window.scrollTo({ top: 0 })
 		return usePortal(
-			<div className={className}>
-				<div>
-					<button onClick={handlerClose}>✖</button>
+			<div id="modal" className="fixed inset-0 z-[1000] grid place-items-center bg-black/[0.5]">
+				<div className="sticky top-1/2 z-[inherit] flex -translate-y-1/2 flex-col justify-center gap-4 rounded-2xl bg-white p-4">
+					<button
+						className="cursor-pointer self-end border-none bg-transparent text-dark-blue outline-none hover:cursor-pointer hover:text-red focus:text-red"
+						onClick={handlerClose}>
+						✖
+					</button>
 					{children}
 				</div>
 			</div>
@@ -49,35 +49,4 @@ const Modal = ({ className, children, show, onClose: close }: ModalProps) => {
 	}
 }
 
-const StyledModal = styled(Modal)`
-	position: fixed;
-	inset: 0;
-	z-index: 1000;
-
-	background-color: rgba(0, 0, 0, 0.5);
-	display: grid;
-	place-items: center;
-
-	& > div {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-		background-color: white;
-		border-radius: 1rem;
-		gap: 1rem;
-		padding: 1rem;
-		z-index: inherit;
-		position: sticky;
-		top: 50%;
-		transform: translateY(-50%);
-		& > button {
-			background-color: transparent;
-			border: none;
-			outline: none;
-			align-self: end;
-			cursor: pointer;
-		}
-	}
-`
-
-export default StyledModal
+export default Modal

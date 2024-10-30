@@ -1,22 +1,22 @@
-import React, { ElementType } from "react"
+import { ElementType } from 'react'
 
-import { attrNormalize } from "./helpers.ts"
-import icons from "./icons.json"
+import { attrNormalize } from './helpers.ts'
+import icons from './icons.json'
 
-type GenericObject = { [key: string]: any }
+type GenericObject = { [key: string]: unknown }
 
 interface ChildProps {
 	key?: string | number
 	name: ElementType | string
 	attributes?: GenericObject
-	children?: [GenericObject] | GenericObject
+	children?: [unknown] | unknown
 	width: number
 }
 
 const Child = ({ name: Element, attributes, children, ...props }: ChildProps) => {
 	return (
 		<Element {...attrNormalize(attributes)} {...props}>
-			{children?.length && children.map((child: ChildProps, key: number) => <Child key={key} {...child} />)}
+			{Array.isArray(children) && children.map((child: ChildProps, key: number) => <Child key={key} {...child} />)}
 		</Element>
 	)
 }
@@ -31,4 +31,6 @@ interface IconProps {
 	className?: string
 }
 
-export const Icon = ({ name, width, ...props }: IconProps): JSX.Element => <Child {...props} {...icons[name]} width={width || 24} />
+export const Icon = ({ name, width, ...props }: IconProps): JSX.Element => (
+	<Child {...props} {...icons[name]} width={width || 24} />
+)
