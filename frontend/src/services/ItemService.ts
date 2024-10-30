@@ -1,10 +1,10 @@
-import { Axios } from "axios"
-import { ENDPOINTS } from "../api/axios"
-import Item from "../models/Item"
-import { Page } from "../types/Page"
-import Pageable from "../types/Pageable"
-import IngredientService from "./IngredientService"
-import Service from "./Service"
+import { Axios } from 'axios'
+import { ENDPOINTS } from '../api/axios'
+import Item from '../models/Item'
+import { Page } from '../types/Page'
+import Pageable from '../types/Pageable'
+import IngredientService from './IngredientService'
+import Service from './Service'
 
 export default class ItemService extends Service {
 	constructor(axios: Axios) {
@@ -16,11 +16,15 @@ export default class ItemService extends Service {
 	}
 
 	async findByName(name: string) {
-		return await this.axios.get<Item>(`${ENDPOINTS.ITEM}`, { params: { name } })
+		return await this.axios.get<Item>(`${ENDPOINTS.ITEM}`, {
+			params: { name }
+		})
 	}
 
 	async findAll(proficiency?: string, pageable?: Pageable) {
-		return await this.axios.get<Page<Item>>(`${ENDPOINTS.ITEM}/all`, { params: { proficiency, ...pageable } })
+		return await this.axios.get<Page<Item>>(`${ENDPOINTS.ITEM}/all`, {
+			params: { proficiency, ...pageable }
+		})
 	}
 
 	async buildItem(itemName: string): Promise<Item | undefined> {

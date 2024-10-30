@@ -1,25 +1,33 @@
-import axios from "../../../../api/axios"
-import { FormEvent, HtmlHTMLAttributes, useState } from "react"
-import { Form } from "react-router-dom"
-import Button from "../../../../components/button"
-import Input from "../../../../components/input"
-import Trade from "../../../../models/Trade"
-import TradeService from "../../../../services/TradeService"
-import Pageable from "../../../../types/Pageable"
-import DataTable from "../../datatable"
+import axios from '../../../../api/axios'
+import { FormEvent, HtmlHTMLAttributes, useState } from 'react'
+import { Form } from 'react-router-dom'
+import Button from '../../../../components/button'
+import Input from '../../../../components/input'
+import Trade from '../../../../models/Trade'
+import TradeService from '../../../../services/TradeService'
+import Pageable from '../../../../types/Pageable'
+import DataTable from '../../Datatable'
 
-import "./index.css"
+import './index.css'
 
-interface BuyFormProps extends HtmlHTMLAttributes<HTMLDivElement> {}
+type BuyFormProps = HtmlHTMLAttributes<HTMLDivElement>
 
-export default function BuyForm({ className, ...props }: BuyFormProps) {
-	const [buyState, setBuyState] = useState({ item: "", min_price: null, max_price: null })
-	const [pageable, setPageable] = useState<Pageable>({ page: 0, size: 10, sort: { name: "price", direction: "asc" } })
+export default function BuyForm({ ...props }: BuyFormProps) {
+	const [buyState, setBuyState] = useState({
+		item: '',
+		min_price: null,
+		max_price: null
+	})
+	const [pageable, setPageable] = useState<Pageable>({
+		page: 0,
+		size: 10,
+		sort: { name: 'price', direction: 'asc' }
+	})
 	const [tradeList, setTradeList] = useState<Trade[]>([])
 
 	const handleChange = (e: FormEvent<HTMLInputElement>) => {
 		const { name, value } = e.currentTarget
-		setBuyState((prev) => ({ ...prev, [name]: value }))
+		setBuyState(prev => ({ ...prev, [name]: value }))
 	}
 
 	const handleSubmit = (e: FormEvent) => {
@@ -28,31 +36,31 @@ export default function BuyForm({ className, ...props }: BuyFormProps) {
 		const { item } = buyState
 		const min_price = buyState.min_price ?? undefined
 		const max_price = buyState.max_price ?? undefined
-		tradeService.findAll({ item, min_price, max_price, pageable }).then((res) => {
+		tradeService.findAll({ item, min_price, max_price, pageable }).then(res => {
 			setTradeList(res.data.content)
 			if (res.data.content.length === 0) {
-				alert("No trades found for this item.")
+				alert('No trades found for this item.')
 			}
 		})
 	}
 
 	const sortFn = (str: string) => {
-		setPageable((prev) => {
+		setPageable(prev => {
 			if (prev.sort?.name === str) {
 				return {
 					...prev,
 					sort: {
 						...prev.sort,
-						direction: prev.sort?.direction === "asc" ? "desc" : "asc",
-					},
+						direction: prev.sort?.direction === 'asc' ? 'desc' : 'asc'
+					}
 				}
 			} else {
 				return {
 					...prev,
 					sort: {
 						name: str,
-						direction: "asc",
-					},
+						direction: 'asc'
+					}
 				}
 			}
 		})
@@ -60,33 +68,33 @@ export default function BuyForm({ className, ...props }: BuyFormProps) {
 
 	return (
 		<div className="buy-form-wrapper" {...props}>
-			<Form className='buy-form' onSubmit={handleSubmit}>
+			<Form onSubmit={handleSubmit}>
 				<div>
-					<label htmlFor='item'>Item:</label>
-					<Input type='text' name='item' id='item' placeholder='Item' onChangeCapture={handleChange} />
+					<label htmlFor="item">Item:</label>
+					<Input type="text" name="item" id="item" placeholder="Item" onChangeCapture={handleChange} />
 				</div>
 				<div>
-					<label htmlFor='price'>Price:</label>
+					<label htmlFor="price">Price:</label>
 					<Input
-						type='number'
+						type="number"
 						step={1}
-						name='min_price'
-						id='min_price'
-						placeholder='Min'
+						name="min_price"
+						id="min_price"
+						placeholder="Min"
 						onChangeCapture={handleChange}
 					/>
 					<Input
-						type='number'
+						type="number"
 						step={1}
-						name='max_price'
-						id='max_price'
-						placeholder='Max'
+						name="max_price"
+						id="max_price"
+						placeholder="Max"
 						onChangeCapture={handleChange}
 					/>
 				</div>
 				<div>
-					<Button type='reset'>Reset</Button>
-					<Button className='btn-primary' type='submit' disabled={buyState.item.length === 0}>
+					<Button type="reset">Reset</Button>
+					<Button $primary type="submit" disabled={buyState.item.length === 0}>
 						Search
 					</Button>
 				</div>
@@ -95,11 +103,11 @@ export default function BuyForm({ className, ...props }: BuyFormProps) {
 				<>
 					<span className="text-center">Showing {tradeList.length} results</span>
 					<DataTable
-						headers={["Item", "Price", "Quantity", "Seller"]}
+						headers={['Item', 'Price', 'Quantity', 'Seller']}
 						data={tradeList}
 						pageable={pageable}
 						sortFn={sortFn}
-						extra={new Map<string, Function>([["menu", () => alert("menu")]])}
+						extra={new Map<string, () => void>([['menu', () => alert('menu')]])}
 					/>
 				</>
 			)}
