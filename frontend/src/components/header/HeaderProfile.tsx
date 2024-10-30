@@ -1,8 +1,8 @@
-import { HTMLAttributes } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import axios from "../../api/axios"
-import useAuthContext from "../../hooks/useAuthContext"
-import { AuthService } from "../../services/AuthService"
+import { HTMLAttributes } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from '../../api/axios'
+import useAuthContext from '../../hooks/useAuthContext'
+import { AuthService } from '../../services/AuthService'
 
 interface HeaderProfileProps extends HTMLAttributes<HTMLDivElement> {
 	username: string
@@ -19,7 +19,7 @@ export const HeaderProfile = ({ className, username }: HeaderProfileProps) => {
 			if (response && response.status === 200) {
 				setAuth(null)
 				localStorage.clear()
-				navigate("/", { replace: true })
+				navigate('/', { replace: true })
 			}
 		} catch (error) {
 			console.log(`Error no logout: ${error}`)
@@ -29,9 +29,11 @@ export const HeaderProfile = ({ className, username }: HeaderProfileProps) => {
 	return (
 		<div className={className}>
 			<span>
-				<Link to={"/account"}>{username}</Link>
+				<Link to={'/account'}>{username}</Link>
 			</span>
-			<button className="btn-logout" onClick={handleLogout}>Logout</button>
+			<button className="btn-logout" onClick={handleLogout}>
+				Logout
+			</button>
 		</div>
 	)
 }

@@ -8,12 +8,9 @@
 		@apply text-left;
 	}
 	div {
-		@apply gap-1;
-		&:not(.line) {
-			@apply flex flex-col w-[calc(100%-1rem)];
-		}
+		@apply flex flex-col gap-4;
 		&.line {
-			@apply bg-orange w-full h-[2px] mb-4;
+			@apply bg-orange w-full min-h-[2px];
 		}
 	}
 	a {

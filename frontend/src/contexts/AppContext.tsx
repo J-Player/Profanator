@@ -1,11 +1,14 @@
-import { createContext } from "react"
+import { createContext, Dispatch, SetStateAction } from 'react'
 
 export type AppType = {
 	proficiencies?: string[]
 	items?: Map<string, string>
 }
 
-type AppContextProp<T> = {} | null
+type AppContextProp<T> = {
+	app: T
+	setApp: Dispatch<SetStateAction<T>>
+} | null
 
 const AppContext = createContext<AppContextProp<AppType>>(null)
 

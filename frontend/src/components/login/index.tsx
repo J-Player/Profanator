@@ -1,21 +1,21 @@
-import { FormEvent, HTMLAttributes, useEffect, useRef, useState } from "react"
-import Form from "../form"
-import useAuthContext from "../../hooks/useAuthContext"
-import Input from "../input"
-import Button from "../button"
-import axios, { ENDPOINTS } from "../../api/axios"
+import { FormEvent, HTMLAttributes, useEffect, useRef, useState } from 'react'
+import Form from '../form'
+import useAuthContext from '../../hooks/useAuthContext'
+import Input from '../input'
+import axios, { ENDPOINTS } from '../../api/axios'
 
-import "./index.css"
-import Section from "../section"
+import './index.css'
+import Section from '../section'
+import Button from '../button'
 
 interface LoginProps extends HTMLAttributes<HTMLElement> {
-	toRegister: Function
-	onClose: Function
+	toRegister: () => void
+	onClose: () => void
 }
 
 const Login = ({ toRegister, onClose: close }: LoginProps) => {
-	const [username, setUsername] = useState("")
-	const [password, setPassword] = useState("")
+	const [username, setUsername] = useState('')
+	const [password, setPassword] = useState('')
 	const userRef = useRef<HTMLInputElement>(null)
 	const { setAuth } = useAuthContext()
 	useEffect(() => {
@@ -31,7 +31,7 @@ const Login = ({ toRegister, onClose: close }: LoginProps) => {
 				{ withCredentials: true }
 			)
 			if (response.data) {
-				setAuth((prev) => {
+				setAuth(prev => {
 					console.log(response.data)
 					return { ...prev, accessToken: response.data.access_token }
 				})
@@ -43,29 +43,29 @@ const Login = ({ toRegister, onClose: close }: LoginProps) => {
 	}
 
 	return (
-		<Section className='login-form'>
+		<Section className="login-form">
 			<h1>Login</h1>
 			<Form onSubmit={handleSubmit}>
-				<label htmlFor='username'>Username:</label>
+				<label htmlFor="username">Username:</label>
 				<Input
-					type='text'
-					id='username'
+					type="text"
+					id="username"
 					ref={userRef}
-					autoComplete='off'
-					onChange={(e) => setUsername(e.target.value)}
+					autoComplete="off"
+					onChange={e => setUsername(e.target.value)}
 					value={username}
 					required
 				/>
-				<label htmlFor='password'>Password:</label>
+				<label htmlFor="password">Password:</label>
 				<Input
-					type='password'
-					id='password'
-					autoComplete='off'
-					onChange={(e) => setPassword(e.target.value)}
+					type="password"
+					id="password"
+					autoComplete="off"
+					onChange={e => setPassword(e.target.value)}
 					value={password}
 					required
 				/>
-				<Button $primary type='submit' disabled={!username || !password}>
+				<Button $primary type="submit" disabled={!username || !password}>
 					Login
 				</Button>
 			</Form>

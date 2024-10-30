@@ -1,7 +1,6 @@
-import { useState } from "react"
-import AppContext from "../contexts/AppContext"
-import AuthProvider from "./AuthProvider"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import AppContext from '../contexts/AppContext'
+import AuthProvider from './AuthProvider'
 
 type AppProviderProp = {
 	children: React.ReactNode
@@ -10,10 +9,9 @@ type AppProviderProp = {
 const query = new QueryClient()
 
 const AppProvider = ({ children }: AppProviderProp) => {
-	const [app, setApp] = useState(null)
 	return (
 		<QueryClientProvider client={query}>
-			<AppContext.Provider value={{ app, setApp }}>
+			<AppContext.Provider value={null}>
 				<AuthProvider>{children}</AuthProvider>
 			</AppContext.Provider>
 		</QueryClientProvider>

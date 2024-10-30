@@ -1,28 +1,23 @@
-import styled from "styled-components"
-import { Color } from "../../themes"
+import { ButtonHTMLAttributes } from 'react'
+import { cn } from '../../utils/cn'
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	$primary?: boolean
 }
 
-const Button = styled.button<ButtonProps>`
-	background-color: ${({$primary}) => $primary && Color.DARK_BLUE || Color.LIGHT_GRAY};
-	color: ${({$primary}) => $primary && Color.WHITE || Color.BLACK};
-	border-color: ${({$primary}) => $primary && Color.WHITE || Color.BLACK};
-	outline: none;
-	border: 1px solid transparent;
-	&:disabled {
-		cursor: not-allowed;
-		opacity: .5;
-	}
-	&:not(:disabled) {
-		&:hover,
-		&:focus {
-			cursor: pointer;
-			background-color: ${Color.ORANGE};
-			color: ${Color.BLACK};
-		}
-	}
-`
+const Button = ({ className, children, $primary, ...props }: ButtonProps) => {
+	return (
+		<button
+			className={cn(
+				'bg-light-gray px-2 py-1 border border-dark-blue outline-none disabled:cursor-not-allowed disabled:opacity-50  [&:not(:disabled)]:hover:bg-whitesmoke rounded',
+				$primary &&
+					'bg-dark-blue text-light-gray [&:not(:disabled)]:hover:bg-orange [&:not(:disabled)]:hover:text-dark-blue',
+				className
+			)}
+			{...props}>
+			{children}
+		</button>
+	)
+}
 
 export default Button

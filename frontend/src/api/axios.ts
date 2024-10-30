@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from 'axios'
 
 const BASE_URL = process.env.API_URL
 
@@ -8,16 +8,16 @@ export enum ENDPOINTS {
 	INGREDIENT = '/ingredients',
 	TRADE = '/trade',
 	USER = '/users',
-	AUTH = '/auth',
+	AUTH = '/auth'
 }
 
 export default axios.create({
 	baseURL: BASE_URL,
-	headers: { "Content-Type": "application/json", },
+	headers: { 'Content-Type': 'application/json' }
 })
 
 export const axiosPrivate = axios.create({
 	baseURL: BASE_URL,
-	headers: { "Content-Type": "application/json" },
-	withCredentials: true,
+	headers: { 'Content-Type': 'application/json' },
+	withCredentials: true
 })

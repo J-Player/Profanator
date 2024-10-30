@@ -1,22 +1,14 @@
-import styled from "styled-components"
-import Input from "../input"
-import Button from "../button"
+import { FormHTMLAttributes } from 'react'
+import { cn } from '../../utils/cn'
 
-const Form = styled.form`
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	* {
-		font-size: inherit;
-	}
-	${Input}, ${Button}, select {
-		border-radius: 0.5rem;
-		padding: 0.5rem;
-		flex: 1 1 0;
-	}
-	select option {
-		color: black;
-	}
-`
+type FormProps = FormHTMLAttributes<HTMLFormElement>
+
+export const Form = ({ className, children, ...props }: FormProps) => {
+	return (
+		<form className={cn('flex flex-col gap-4', className)} {...props}>
+			{children}
+		</form>
+	)
+}
 
 export default Form

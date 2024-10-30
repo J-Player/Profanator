@@ -1,19 +1,22 @@
-import styled from "styled-components"
-import { Color } from "../../themes"
+import { forwardRef, InputHTMLAttributes } from 'react'
+import { cn } from '../../utils/cn'
 
-const Input = styled.input`
-	border: 2px solid ${Color.LIGHT_GRAY};
-	outline: none;
-	&:disabled {
-		cursor: not-allowed;
-		opacity: 0.5;
-	}
-	&:not(:disabled) {
-		&:hover,
-		&:focus {
-			border-color: ${Color.ORANGE};
-		}
-	}
-`
+type InputProps = InputHTMLAttributes<HTMLInputElement>
+
+const Input = forwardRef<HTMLInputElement, InputProps>(({ className, children, ...props }: InputProps, ref) => {
+	return (
+		<input
+			ref={ref}
+			{...props}
+			className={cn(
+				'border-2 border-light-gray outline-none px-2 py-1 disabled:cursor-not-allowed disabled:opacity-50 [&:not(:disabled)]:hover:border-orange [&:not(:disabled)]:focus:border-orange',
+				className
+			)}>
+			{children}
+		</input>
+	)
+})
+
+Input.displayName = 'Input'
 
 export default Input

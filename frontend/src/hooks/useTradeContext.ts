@@ -1,5 +1,5 @@
-import { useContext } from "react"
-import TradeContext from "../contexts/TradeContext"
+import { useContext } from 'react'
+import TradeContext from '../contexts/TradeContext'
 
 const useTradeContext = () => {
 	const context = useContext(TradeContext)

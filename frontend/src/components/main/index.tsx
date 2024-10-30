@@ -1,12 +1,8 @@
-import { HTMLAttributes } from "react"
-import "./index.css"
+import { HTMLAttributes } from 'react'
+import './index.css'
 
-interface MainProps extends HTMLAttributes<HTMLElement> {}
+type MainProps = HTMLAttributes<HTMLElement>
 
-export default function Main({ className, children }: MainProps) {
-	return (
-		<main className={className}>
-			{children}
-		</main>
-	)
+export default function Main({ children, ...props }: MainProps) {
+	return <main {...props}>{children}</main>
 }

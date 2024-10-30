@@ -1,29 +1,30 @@
-import ignoreIcon from "../../../assets/icons/ignore.svg"
-import Trade from "../../../models/Trade"
-import Table from "./styles"
-import Pageable from "../../../types/Pageable"
+import ignoreIcon from '../../../assets/icons/ignore.svg'
+import Trade from '../../../models/Trade'
+import Pageable from '../../../types/Pageable'
 
 interface DataTableProps {
 	headers: string[]
 	data: Trade[]
 	pageable: Pageable
 	sortFn: (value: string) => void
-	extra?: Map<string, Function>
+	extra?: Map<string, () => void>
 }
 
 const DataTable = ({ headers, data, pageable, sortFn, extra }: DataTableProps) => {
 	const equals = (str1: string, str2: string) => str1.toLowerCase() === str2.toLowerCase()
 	return (
-		<Table>
+		<table>
 			<thead>
 				<tr>
 					{headers.map((value, i) => {
 						return (
 							<th
 								key={i}
-								onClick={(e) => sortFn(e.currentTarget.innerText.toLowerCase())}
-								className={(equals(pageable.sort?.name!, value) && `active ${pageable.sort?.direction}`) || undefined}
-							>
+								onClick={e => sortFn(e.currentTarget.innerText.toLowerCase())}
+								className={
+									(pageable.sort && equals(pageable.sort.name, value) && `active ${pageable.sort?.direction}`) ||
+									undefined
+								}>
 								{value}
 							</th>
 						)
@@ -32,18 +33,18 @@ const DataTable = ({ headers, data, pageable, sortFn, extra }: DataTableProps) =
 				</tr>
 			</thead>
 			<tbody>
-				{data.map((value) => {
+				{data.map(value => {
 					return (
 						<tr key={value.id}>
 							<td>
-								<div className='item-wrapper'>
+								<div>
 									<img
-										src={`items/${value.item.toLowerCase().replace(" ", "_")}.png`}
+										src={`items/${value.item.toLowerCase().replace(' ', '_')}.png`}
 										onError={({ currentTarget }) => {
 											currentTarget.onerror = null
-											currentTarget.src = "items/ambar.png"
+											currentTarget.src = 'items/ambar.png'
 										}}
-										alt=''
+										alt=""
 									/>
 									{value.item}
 								</div>
@@ -55,8 +56,8 @@ const DataTable = ({ headers, data, pageable, sortFn, extra }: DataTableProps) =
 								<td>
 									<div>
 										<button>
-											<img src={ignoreIcon} alt='Ignore User' />
-										</button>	
+											<img src={ignoreIcon} alt="Ignore User" />
+										</button>
 									</div>
 								</td>
 							)}
@@ -64,7 +65,7 @@ const DataTable = ({ headers, data, pageable, sortFn, extra }: DataTableProps) =
 					)
 				})}
 			</tbody>
-		</Table>
+		</table>
 	)
 }
 

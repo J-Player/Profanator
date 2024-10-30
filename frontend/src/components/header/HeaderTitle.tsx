@@ -1,5 +1,5 @@
-import { HTMLAttributes } from "react"
-import { Link } from "react-router-dom"
+import { HTMLAttributes } from 'react'
+import { Link } from 'react-router-dom'
 
 interface HeaderTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 	text: string
@@ -8,7 +8,7 @@ interface HeaderTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 export const HeaderTitle = ({ text, className }: HeaderTitleProps) => {
 	return (
 		<h1 className={className}>
-			<Link className='cursor-pointer text-inherit no-underline' to={"/"}>
+			<Link className="cursor-pointer text-inherit no-underline" to={'/'}>
 				{text}
 			</Link>
 		</h1>

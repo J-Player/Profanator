@@ -1,6 +1,6 @@
-import { createContext } from "react"
-import Pageable from "../types/Pageable"
-import Trade from "../models/Trade"
+import { createContext } from 'react'
+import Pageable from '../types/Pageable'
+import Trade from '../models/Trade'
 
 export interface BuyState {
 	item: string
@@ -11,11 +11,11 @@ export interface BuyState {
 }
 
 export type BuyAction =
-	| { type: "item"; value: string }
-	| { type: "minprice"; value?: number }
-	| { type: "maxprice"; value?: number }
-	| { type: "tradelist"; value: Trade[] }
-	| { type: "pageable"; value: Pageable }
+	| { type: 'item'; value: string }
+	| { type: 'minprice'; value?: number }
+	| { type: 'maxprice'; value?: number }
+	| { type: 'tradelist'; value: Trade[] }
+	| { type: 'pageable'; value: Pageable }
 
 export interface SellState {
 	item?: string
@@ -26,11 +26,11 @@ export interface SellState {
 }
 
 export type SellAction =
-	| { type: "item"; value: string }
-	| { type: "price"; value: number }
-	| { type: "quantity"; value: number }
-	| { type: "tradelist"; value: Trade[] }
-	| { type: "pageable"; value: Pageable }
+	| { type: 'item'; value: string }
+	| { type: 'price'; value: number }
+	| { type: 'quantity'; value: number }
+	| { type: 'tradelist'; value: Trade[] }
+	| { type: 'pageable'; value: Pageable }
 
 type TradeContextProp = {
 	buyState: BuyState
