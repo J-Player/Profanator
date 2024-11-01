@@ -67,14 +67,6 @@ public class UserService implements ReactiveUserDetailsService, IService<User> {
                 .flatMap(userRepository::delete);
     }
 
-    public boolean verifyUser(UserDetails userDetails) {
-        boolean accountNonLocked = userDetails.isAccountNonLocked();
-        boolean accountNonExpired = userDetails.isAccountNonExpired();
-        boolean credentialsNonExpired = userDetails.isCredentialsNonExpired();
-        boolean enabled = userDetails.isEnabled();
-        return accountNonExpired && accountNonLocked && credentialsNonExpired && enabled;
-    }
-
     public Mono<Void> deleteAll() {
         return userRepository.deleteAll();
     }
