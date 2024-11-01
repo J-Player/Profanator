@@ -17,12 +17,12 @@ on:
     paths: 
       - 'backend/**'
 
+defaults:
+  run:
+    working-directory: ./backend
+
 jobs:
   build:
-    defaults:
-      run:
-        working-directory: ./backend
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -55,10 +55,6 @@ jobs:
     #   run: gradle build
 
   dependency-submission:
-    defaults:
-      run:
-        working-directory: ./backend
-
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -70,6 +66,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        build-root-directory: ./backend
 
     # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
     # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
