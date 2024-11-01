@@ -1,14 +1,12 @@
 package api.models.entities;
 
-import api.configs.web.deserializers.InstantJsonDeserializer;
-import api.configs.web.serializers.InstantJsonSerializer;
-import api.models.enums.UserRole;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.v3.oas.annotations.Hidden;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import static api.models.enums.UserRole.ADMIN;
+import static api.models.enums.UserRole.USER;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -18,12 +16,20 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.Instant;
-import java.util.List;
-import java.util.stream.Stream;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import static api.models.enums.UserRole.ADMIN;
-import static api.models.enums.UserRole.USER;
+import api.configs.web.deserializers.InstantJsonDeserializer;
+import api.configs.web.serializers.InstantJsonSerializer;
+import api.models.enums.UserRole;
+import io.swagger.v3.oas.annotations.Hidden;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.With;
 
 @Data
 @With
@@ -78,12 +84,14 @@ public class User implements UserDetails {
     @Hidden
     @Override
     public List<? extends GrantedAuthority> getAuthorities() {
-        return (switch (role) {
-            case ADMIN -> Stream.of(ADMIN, USER);
-            case USER -> Stream.of(USER);
-        }).map(UserRole::getRole)
-                .map(SimpleGrantedAuthority::new)
-                .toList();
+        List<GrantedAuthority> authorities = new ArrayList<>(2);
+        if (role == ADMIN) {
+            authorities.add(new SimpleGrantedAuthority(ADMIN.getRole()));
+            authorities.add(new SimpleGrantedAuthority(USER.getRole()));
+        } else {
+            authorities.add(new SimpleGrantedAuthority(USER.getRole()));
+        }
+        return authorities;
     }
 
     @Override
