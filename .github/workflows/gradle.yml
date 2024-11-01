@@ -9,11 +9,13 @@ name: Java CI with Gradle
 
 on:
   push:
+    branches: [ 'main', 'backend' ]
     paths:
       - 'backend/**'
-    branches: [ "main", "backend" ]
   pull_request:
-    branches: [ "main", "backend" ]
+    branches: [ 'main', 'backend' ]
+    paths: 
+      - 'backend/**'
 
 jobs:
   build:
@@ -53,6 +55,9 @@ jobs:
     #   run: gradle build
 
   dependency-submission:
+    defaults:
+      run:
+        working-directory: ./backend
 
     runs-on: ubuntu-latest
     permissions:
