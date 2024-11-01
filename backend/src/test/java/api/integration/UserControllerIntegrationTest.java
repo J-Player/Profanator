@@ -1,5 +1,7 @@
 package api.integration;
 
+import api.configs.security.annotations.WithUserDetailsCustom;
+import api.integration.annotation.IntegrationTest;
 import api.mappers.UserMapper;
 import api.models.entities.User;
 import api.models.security.RegisterRequest;
@@ -8,6 +10,7 @@ import api.util.UserCreator;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -18,8 +21,8 @@ import java.time.Duration;
 import static api.integration.constraint.IntegrationConstraints.*;
 
 //FIXME: Corrigir essa classe de teste de integração
-//@IntegrationTest
-//@DisplayName("User Controller Integration Test")
+@IntegrationTest
+@DisplayName("User Controller Integration Test")
 class UserControllerIntegrationTest {
 
     @Autowired
@@ -44,7 +47,7 @@ class UserControllerIntegrationTest {
         userService.deleteAll().block(Duration.ofSeconds(5));
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("findById | Returns a user when successful")
     void findById() {
@@ -55,7 +58,7 @@ class UserControllerIntegrationTest {
                 .expectBody(User.class);
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("findById | Returns 404 error when not found")
     void findById_ReturnsError_WhenNotFound() {
@@ -65,7 +68,7 @@ class UserControllerIntegrationTest {
                 .expectStatus().isNotFound();
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("findByName | Returns a user when successful")
     void findByName() {
@@ -79,7 +82,7 @@ class UserControllerIntegrationTest {
                 .expectBody(User.class);
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("findByName | Returns 404 error when not found")
     void findByName_ReturnsError_WhenNotFound() {
@@ -89,7 +92,7 @@ class UserControllerIntegrationTest {
                 .expectStatus().isNotFound();
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("listAll | Returns all users when successful")
     void listAll() {
@@ -100,7 +103,7 @@ class UserControllerIntegrationTest {
                 .expectBodyList(User.class);
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("save | Returns a user when successful")
     void save() {
@@ -112,7 +115,7 @@ class UserControllerIntegrationTest {
                 .expectBody(User.class);
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("save | Returns 400 error when invalid user")
     void save_ReturnsError_WhenInvalidUser() {
@@ -123,7 +126,7 @@ class UserControllerIntegrationTest {
                 .expectStatus().isBadRequest();
     }
 
-//    @Test
+    @Test
     @WithUserDetails(REGULAR_USER)
     @DisplayName("save | Returns 403 error when forbidden user")
     void save_ReturnsError_WhenForbiddenUser() {
@@ -134,7 +137,7 @@ class UserControllerIntegrationTest {
                 .expectStatus().isForbidden();
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("update | Returns status 204 (no content) when successful")
     void update() {
@@ -145,7 +148,7 @@ class UserControllerIntegrationTest {
                 .expectStatus().isNoContent();
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("update | Returns 400 error when invalid user")
     void update_ReturnsError_WhenInvalidUser() {
@@ -156,8 +159,8 @@ class UserControllerIntegrationTest {
                 .expectStatus().isBadRequest();
     }
 
-//    @Test
-    @WithUserDetails(REGULAR_USER)
+    @Test
+    @WithUserDetailsCustom
     @DisplayName("update | Returns 403 error when forbidden user")
     void update_ReturnsError_WhenForbiddenUser() {
         client.put()
@@ -167,7 +170,7 @@ class UserControllerIntegrationTest {
                 .expectStatus().isForbidden();
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("delete | Returns status 204 (no content) when successful")
     void delete() {
@@ -178,8 +181,8 @@ class UserControllerIntegrationTest {
                 .expectStatus().isNoContent();
     }
 
-//    @Test
-    @WithUserDetails(REGULAR_USER)
+    @Test
+    @WithUserDetailsCustom
     @DisplayName("delete | Returns 403 error when forbidden user")
     void delete_ReturnsError_WhenForbiddenUser() {
         client.delete()
@@ -188,7 +191,7 @@ class UserControllerIntegrationTest {
                 .expectStatus().isForbidden();
     }
 
-//    @Test
+    @Test
     @WithUserDetails(ADMIN_USER)
     @DisplayName("delete | Returns 404 error when not found")
     void delete_ReturnsError_WhenNotFound() {
@@ -197,6 +200,5 @@ class UserControllerIntegrationTest {
                 .exchange()
                 .expectStatus().isNotFound();
     }
-
 
 }
