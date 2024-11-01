@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.rememberme.InvalidCookieException;
 import org.springframework.stereotype.Service;
 
@@ -91,11 +92,18 @@ public class AuthenticationService {
         if (type == null || !type.
                 equals(REFRESH_TOKEN.getType())) throw new InvalidTokenException();
         return userService.findByName(username)
-                .filter(userService::verifyUser)
+                .filter(this::verifyUser)
                 .filter(userDetails -> tokenService.isValidToken(refreshToken, userDetails))
                 .map(user -> new AuthenticationResponse(tokenService.generateAccessToken(user)));
     }
 
+    private boolean verifyUser(UserDetails userDetails) {
+        boolean accountNonLocked = userDetails.isAccountNonLocked();
+        boolean accountNonExpired = userDetails.isAccountNonExpired();
+        boolean credentialsNonExpired = userDetails.isCredentialsNonExpired();
+        boolean enabled = userDetails.isEnabled();
+        return accountNonExpired && accountNonLocked && credentialsNonExpired && enabled;
+    }
 
     public static Mono<User> getPrincipal() {
         return ReactiveSecurityContextHolder.getContext().map(SecurityContext::getAuthentication)
