@@ -32,7 +32,7 @@ const App = () => {
 				<Button
 					className="sticky bottom-4 right-4 mb-4 size-12 cursor-pointer self-end rounded-full border-2"
 					onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-					<Icon name="arrow-up" />
+					<Icon className="m-auto" name="arrow-up" />
 				</Button>
 			)}
 			<Footer />
