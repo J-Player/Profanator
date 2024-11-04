@@ -12,6 +12,7 @@ import ItemService from '../../services/ItemService'
 import { cn } from '../../utils/cn'
 import './index.css'
 import { Card } from './card'
+import { Page as PageComponent } from '../../components/page'
 
 const Calculator = ({ className }: { className?: string }) => {
 	const [proficiencies, setProficiencies] = useState<string[]>([])
@@ -105,7 +106,7 @@ const Calculator = ({ className }: { className?: string }) => {
 	}
 
 	return (
-		<section className={cn('calculator-section', className)}>
+		<PageComponent className={cn('calculator-section', className)} title="Calculator">
 			<h1>Calculator</h1>
 			{!result ? (
 				<Form onSubmit={e => e.preventDefault()}>
@@ -183,7 +184,7 @@ const Calculator = ({ className }: { className?: string }) => {
 					</div>
 				</>
 			)}
-		</section>
+		</PageComponent>
 	)
 }
 

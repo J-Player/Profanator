@@ -3,6 +3,7 @@ import Button from '../../components/button'
 import Form from '../../components/form'
 import Input from '../../components/input'
 import './index.css'
+import { Page } from '../../components/page'
 
 const Economy = () => {
 	const handleSubmit = (e: FormEvent) => {
@@ -10,7 +11,7 @@ const Economy = () => {
 		alert('Not implemented yet!')
 	}
 	return (
-		<section className="economy-section">
+		<Page className="economy-section" title="Economy">
 			<h1>Economy</h1>
 			<Form onSubmit={handleSubmit}>
 				<div>
@@ -21,7 +22,7 @@ const Economy = () => {
 					Search
 				</Button>
 			</Form>
-		</section>
+		</Page>
 	)
 }
 

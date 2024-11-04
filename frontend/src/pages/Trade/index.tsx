@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Section from '../../components/section'
+import { Page } from '../../components/page'
 import useAuthContext from '../../hooks/useAuthContext'
 import BuyForm from './form/buy'
 import SellForm from './form/sell'
@@ -11,7 +11,7 @@ const TradePage = () => {
 	const [tradeType, setTradeType] = useState<'buy' | 'sell'>('buy')
 	const toggleTradeType = () => setTradeType(tradeType === 'sell' ? 'buy' : 'sell')
 	return (
-		<Section className="trade-section">
+		<Page className="trade-section" title="Trade">
 			<h1>Trade</h1>
 			{auth && (
 				<div>
@@ -24,7 +24,7 @@ const TradePage = () => {
 				</div>
 			)}
 			{tradeType === 'buy' ? <BuyForm /> : <SellForm />}
-		</Section>
+		</Page>
 	)
 }
 

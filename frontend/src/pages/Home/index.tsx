@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
-import Section from '../../components/section'
+import { Page } from '../../components/page'
 import './index.css'
 
 const Home = () => {
 	return (
-		<Section className="home-section">
+		<Page className="home-section">
 			<div>
 				<h1>Bem-vindo ao Profanator!</h1>
 				<div className="line"></div>
@@ -44,7 +44,7 @@ const Home = () => {
 					<strong>itens que são comercializados aqui</strong>.
 				</p>
 			</div>
-		</Section>
+		</Page>
 	)
 }
 
