@@ -1,27 +1,32 @@
 import { jwtDecode } from 'jwt-decode'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useAuthContext from '../../hooks/useAuthContext'
+import { UserService } from '../../services/UserService'
 
-interface AccountProps {
-	className?: string
-}
+import { Page } from '../../components/page'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
+import './index.css'
 
-const Account = ({ className }: AccountProps) => {
+const Account = () => {
 	const { auth } = useAuthContext()
-	useEffect(() => {}, [])
+	const [user, setUser] = useState<User>()
+	const axios = useAxiosPrivate()
 
-	const teste = async () => {
-		if (auth) {
-			const decoded = jwtDecode(auth?.accessToken)
-			console.log(`decoded: ${JSON.stringify(decoded)}`)
-		}
-		console.log(`teste: ${JSON.stringify(auth)}`)
-	}
+	useEffect(() => {
+		if (!auth) return
+		const username = jwtDecode(auth.accessToken).sub!
+		const userService = new UserService(axios)
+		userService.findByUsername(username).then(setUser)
+	}, [auth])
+
 	return (
-		<section className={className}>
-			<h1>Account</h1>
-			<button onClick={teste}>testa</button>
-		</section>
+		user && (
+			<Page className="account-section" title="Economy">
+				<h1>Account</h1>
+				<h2>Olá {user?.username}!</h2>
+				<p>🚧 Esta página está em desenvolvimento. 🚧</p>
+			</Page>
+		)
 	)
 }
 
