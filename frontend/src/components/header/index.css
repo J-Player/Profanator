@@ -59,13 +59,11 @@ header button {
 	@apply self-center
     flex
     justify-center
-    flex-col
     items-center
     gap-4
-    bg-whitesmoke 
     h-full
     w-[15vw]
-    text-black
+    text-whitesmoke
     p-4;
 }
 
