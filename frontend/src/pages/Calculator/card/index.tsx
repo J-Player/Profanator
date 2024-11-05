@@ -21,7 +21,7 @@ export const Card = ({ className, item, ...props }: CardProps) => {
 					src={`items/${name.toLowerCase().replace(' ', '_')}.png`}
 					onError={({ currentTarget }) => {
 						currentTarget.onerror = null
-						currentTarget.src = 'items/ambar.png'
+						// currentTarget.src = 'items/ambar.png'
 					}}
 					alt=""
 				/>
