@@ -16,8 +16,15 @@ const router = createBrowserRouter([
 		children: [
 			{ path: '/', element: <Home /> },
 			{ path: '/trade', element: <Trade /> },
-			{ path: '/account', element: <Account /> },
-			{ element: <ProtectedRoute />, children: [] },
+			{
+				element: <ProtectedRoute />,
+				children: [
+					{
+						path: '/account',
+						element: <Account />
+					}
+				]
+			},
 			{ path: '/calculator', element: <Calculator /> },
 			{ path: '/economy', element: <Economy /> }
 		]
