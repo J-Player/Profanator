@@ -19,4 +19,9 @@ export class AuthService extends Service {
 	async logout() {
 		return await this.axios.post(`${ENDPOINTS.AUTH}/logout`)
 	}
+	async refresh() {
+		return await this.axios.get(`${ENDPOINTS.AUTH}/refresh`, {
+			withCredentials: true
+		})
+	}
 }

@@ -1,13 +1,13 @@
-import axios, { ENDPOINTS } from '../api/axios'
+import axios from '../api/axios'
+import { AuthService } from '../services/AuthService'
 import useAuthContext from './useAuthContext'
 
 const useRefreshToken = () => {
 	const { setAuth } = useAuthContext()
 
 	const refresh = async () => {
-		const response = await axios.get(`${ENDPOINTS.AUTH}/refresh`, {
-			withCredentials: true
-		})
+		const authService = new AuthService(axios)
+		const response = await authService.refresh()
 		setAuth(prev => {
 			return { ...prev, accessToken: response.data.access_token }
 		})
