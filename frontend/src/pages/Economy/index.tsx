@@ -2,13 +2,13 @@ import { FormEvent } from 'react'
 import Button from '../../components/button'
 import Form from '../../components/form'
 import Input from '../../components/input'
-import './index.css'
 import { Page } from '../../components/page'
+import './index.css'
 
 const Economy = () => {
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault()
-		alert('Not implemented yet!')
+		alert('Funcionalidade em desenvolvimento!')
 	}
 	return (
 		<Page className="economy-section" title="Economy">
