@@ -1,6 +1,6 @@
 # Profanator
 ![profanator](https://github.com/user-attachments/assets/f9dfa34b-c650-4d29-b80b-6f6d8fa75336)
-Site criado para servir de plataforma para de jogadores do **Profane** (MMO sandbox brasileiro) comercializem itens de forma rápida e eficiente.
+Site criado para servir de plataforma para jogadores do **Profane** (MMO sandbox brasileiro) comercializem itens de forma rápida e eficiente.
 
 ## Características
 Além de uma plataforma para comércio de itens, há algumas características extras:
